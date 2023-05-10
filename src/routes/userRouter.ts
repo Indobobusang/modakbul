@@ -1,8 +1,8 @@
 import express, { Router } from "express";
-import { googleLogin } from "../controllers/userController";
+import userController from "../controllers/userController";
 
 const router: Router = express.Router();
 
-router.post("/googleLogin", googleLogin);
+router.post("/googleLogin", userController.googleLogin);
 
 export { router };
