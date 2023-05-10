@@ -4,6 +4,7 @@ CREATE TABLE users (
   name VARCHAR(200) NOT NULL,
   social_id VARCHAR(200),
   email VARCHAR(200),
+  account VARCHAR(200),
   password VARCHAR(200),
   gender VARCHAR(200),
   birth VARCHAR(200),
