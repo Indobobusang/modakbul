@@ -12,7 +12,16 @@ const googleLogin = catchAsync(async (req: Request, res: Response) => {
   }
 
   const accessToken = await userService.googleLogin(googleToken);
-  return res.status(200).json({ accessToken: accessToken });
+  return res.status(200).json({ access_token: accessToken });
 });
 
-export default { googleLogin };
+const getMyPageInfo = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user;
+  const myPageInfo = await userService.getMyPageInfo(userId);
+  return res.status(200).json({ myPage: myPageInfo });
+});
+
+export default {
+  googleLogin,
+  getMyPageInfo,
+};

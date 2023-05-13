@@ -5,6 +5,7 @@ CREATE TABLE users (
   social_id VARCHAR(200),
   email VARCHAR(200),
   phone_number VARCHAR(200),
+  introduce VARCHAR(2000),
   account VARCHAR(200),
   password VARCHAR(200),
   gender VARCHAR(200),

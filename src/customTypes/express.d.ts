@@ -7,5 +7,3 @@ declare global {
     }
   }
 }
-
-declare module "*.ts";
