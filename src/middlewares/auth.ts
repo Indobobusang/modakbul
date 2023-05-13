@@ -1,8 +1,8 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { catchAsync } from "./errorHandler";
+import { catchAsync } from "../utils/errorHandler";
 import { Request, Response, NextFunction } from "express";
 
-const loginRequired = catchAsync(
+const validateToken = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
@@ -15,6 +15,7 @@ const loginRequired = catchAsync(
     }
     const secretKey = process.env.SECRET_KEY as string;
     const decode = jwt.verify(token, secretKey) as JwtPayload;
+    console.log(decode);
 
     if (!decode) {
       const error = new Error("USERID IS NOT EXIST!");
@@ -22,7 +23,7 @@ const loginRequired = catchAsync(
       throw error;
     }
 
-    req.user = decode.userId as string;
+    req.user = decode.userId as number;
     next();
   }
 );
@@ -41,7 +42,4 @@ const getUserIdIfReqestHasToken = catchAsync(
   }
 );
 
-module.exports = {
-  loginRequired,
-  getUserIdIfReqestHasToken,
-};
+export { validateToken, getUserIdIfReqestHasToken };

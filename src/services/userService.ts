@@ -16,8 +16,6 @@ const googleLogin = async (googleToken: string) => {
     .catch((error) => {
       console.log("error =", error);
     });
-
-  console.log(googleResponse);
   const googleId = googleResponse.id;
   const email = googleResponse.email;
   const name = googleResponse.name;
@@ -29,9 +27,25 @@ const googleLogin = async (googleToken: string) => {
   }
   const userInfo = await userDao.getUserInfoByEmail(email);
   const secretKey = process.env.SECRET_KEY as string;
-  const payLoad = { userId: userInfo.userId };
+  const payLoad = { userId: userInfo[0].userId };
   const accessToken = jwt.sign(payLoad, secretKey);
   return accessToken;
 };
 
-export default { googleLogin };
+const getMyPageInfo = async (userId: number) => {
+  const userInfo = await userDao.getUserInfo(userId);
+  const postImage = await userDao.getPostImage(userId);
+  const likeImage = await userDao.getLikeImage(userId);
+  const scrapImage = await userDao.getScrapImage(userId);
+  return {
+    userInfo: userInfo,
+    postImage: postImage,
+    likeImage: likeImage,
+    scrapImage: scrapImage,
+  };
+};
+
+export default {
+  googleLogin,
+  getMyPageInfo,
+};
