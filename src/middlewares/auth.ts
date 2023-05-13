@@ -15,7 +15,6 @@ const validateToken = catchAsync(
     }
     const secretKey = process.env.SECRET_KEY as string;
     const decode = jwt.verify(token, secretKey) as JwtPayload;
-    console.log(decode);
 
     if (!decode) {
       const error = new Error("USERID IS NOT EXIST!");
