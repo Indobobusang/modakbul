@@ -32,8 +32,81 @@ const deletePostLike = async (userId: number, postId: number) => {
   );
 };
 
+const checkCommentLikeById = async (userId: number, commentId: number) => {
+  return await appDataSource.query(
+    `SELECT
+      *
+    FROM comment_likes AS cl
+    WHERE cl.user_id = ? AND cl.comment_id = ?`,
+    [userId, commentId]
+  );
+};
+
+const postCommentLike = async (userId: number, commentId: number) => {
+  return await appDataSource.query(
+    `INSERT INTO
+      comment_likes (
+        user_id,
+        comment_id
+      ) VALUES (
+        ?,
+        ?
+      )`,
+    [userId, commentId]
+  );
+};
+
+const deleteCommentLike = async (userId: number, commentId: number) => {
+  return await appDataSource.query(
+    `DELETE FROM comment_likes
+    WHERE user_id = ? AND comment_id = ?`,
+    [userId, commentId]
+  );
+};
+
+const checkSubCommentLikeById = async (
+  userId: number,
+  subCommentId: number
+) => {
+  return await appDataSource.query(
+    `SELECT
+      *
+    FROM sub_comment_likes AS scl
+    WHERE scl.user_id = ? AND scl.sub_comment_id = ?`,
+    [userId, subCommentId]
+  );
+};
+
+const postSubCommentLike = async (userId: number, subCommentId: number) => {
+  return await appDataSource.query(
+    `INSERT INTO
+      sub_comment_likes (
+        user_id,
+        sub_comment_id
+      ) VALUES (
+        ?,
+        ?
+      )`,
+    [userId, subCommentId]
+  );
+};
+
+const deleteSubCommentLike = async (userId: number, subCommentId: number) => {
+  return await appDataSource.query(
+    `DELETE FROM sub_comment_likes
+    WHERE user_id = ? AND sub_comment_id = ?`,
+    [userId, subCommentId]
+  );
+};
+
 export default {
   checkPostLikeById,
   postPostLike,
   deletePostLike,
+  checkCommentLikeById,
+  postCommentLike,
+  deleteCommentLike,
+  checkSubCommentLikeById,
+  postSubCommentLike,
+  deleteSubCommentLike,
 };
