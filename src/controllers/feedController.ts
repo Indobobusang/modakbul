@@ -12,17 +12,18 @@ const postFeedByUserId = catchAsync(async (req: Request, res: Response) => {
     throw error;
   }
   try {
-    const { userId, content } = JSON.parse(req.body.data);
-    if (!content) {
+    const { userId, title, content, x, y } = JSON.parse(req.body.data);
+    if (!title || !content || !x || !y) {
       const error = new Error("NO CONTENT!");
       (error as any).statusCode = 400;
       throw error;
     }
 
-    await feedService.postFeedByUserId(userId, images, content);
+    await feedService.postFeedByUserId(userId, images, title, content, x, y);
     return res.status(200).json({ message: "FEED UPLOAD SUCCESS!" });
   } catch (error) {
     for (let i = 0; i < images.length; i++) deleteImage(images[i].key);
+    throw error;
   }
 });
 

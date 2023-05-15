@@ -3,7 +3,10 @@ import { appDataSource } from "./appDataSource";
 const postFeedByUserId = async (
   userId: number,
   images: any,
-  content: string
+  title: string,
+  content: string,
+  x: number,
+  y: number
 ) => {
   const queryRunner = appDataSource.createQueryRunner();
   await queryRunner.connect();
@@ -13,14 +16,20 @@ const postFeedByUserId = async (
       `INSERT INTO
         posts (
           user_id,
+          title,
           content,
+          longitude,
+          latitude,
           post_category_id
         ) VALUES (
           ?,
           ?,
+          ?,
+          ?,
+          ?,
           1
         )`,
-      [userId, content]
+      [userId, title, content, x, y]
     );
 
     const postId = createFeed.insertId;
