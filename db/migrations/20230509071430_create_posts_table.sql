@@ -1,7 +1,8 @@
 -- migrate:up
 CREATE TABLE posts (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  content VARCHAR(2000),
+  title VARCHAR(200),
+  content VARCHAR(3000),
   user_id INT,
   post_category_id INT,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
