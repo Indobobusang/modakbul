@@ -11,6 +11,13 @@ const postFeedByUserId = async (
   return await feedDao.postFeedByUserId(userId, images, title, content, x, y);
 };
 
+const getFeedDetailById = async (postId: number) => {
+  const feed = await feedDao.getFeedById(postId);
+  const comment = await feedDao.getFeedCommentById(postId);
+  return { feed: feed, comment: comment };
+};
+
 export default {
   postFeedByUserId,
+  getFeedDetailById,
 };

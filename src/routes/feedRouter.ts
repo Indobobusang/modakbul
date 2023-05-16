@@ -6,5 +6,6 @@ import { upload } from "../utils/imageUploader";
 const router: Router = express.Router();
 
 router.post("", upload.array("images"), feedController.postFeedByUserId);
+router.get("/:postId", feedController.getFeedDetailById);
 
 export { router };

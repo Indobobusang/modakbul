@@ -27,6 +27,14 @@ const postFeedByUserId = catchAsync(async (req: Request, res: Response) => {
   }
 });
 
+const getFeedDetailById = catchAsync(async (req: Request, res: Response) => {
+  const postId = Number(req.params.postId);
+
+  const feedDetail = await feedService.getFeedDetailById(postId);
+  return res.status(200).json({ feedDetail: feedDetail });
+});
+
 export default {
   postFeedByUserId,
+  getFeedDetailById,
 };

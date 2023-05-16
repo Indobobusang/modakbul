@@ -56,6 +56,57 @@ const postFeedByUserId = async (
   }
 };
 
+const getFeedById = async (postId: number) => {
+  return await appDataSource.query(
+    `SELECT
+      u.name AS userName,
+      u.profile_image_url AS userProfileImage,
+      p.title AS feedTitle,
+      p.content AS feedContent,
+      p.created_at AS feedCreateTime,
+      (SELECT
+        Count(*)
+      FROM post_likes AS pl
+      INNER JOIN posts AS p ON p.id = pl.post_id) AS feedLikeCount,
+      pi.images AS feedImages
+      FROM posts AS p
+      INNER JOIN users AS u ON u.id = p.user_id
+      LEFT JOIN(
+        SELECT
+          post_id,
+          JSON_ARRAYAGG(
+            JSON_OBJECT(
+              'imageId', id,
+              'imageUrl', image_url
+            )
+          ) AS images
+        FROM post_images
+        GROUP BY post_id
+      ) AS pi ON pi.post_id = p.id
+    WHERE p.id = ?`,
+    [postId]
+  );
+};
+
+const getFeedCommentById = async (postId: number) => {
+  return await appDataSource.query(
+    `SELECT
+      c.id AS commentId,
+      c.content AS commentContent,
+      c.created_at AS commentCreateTime,
+      u.id AS commentUserId,
+      u.name AS commentUserName,
+      u.profile_image_url AS commentUserProfileImage
+    FROM comments AS c
+    INNER JOIN posts AS p ON p.id = c.post_id
+    INNER JOIN users AS u ON u.id = c.user_id
+    WHERE p.id = ?`,
+    [postId]
+  );
+};
+
 export default {
   postFeedByUserId,
+  getFeedById,
+  getFeedCommentById,
 };
