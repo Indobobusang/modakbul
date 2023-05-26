@@ -3,7 +3,8 @@ import { catchAsync } from "../utils/errorHandler";
 import { Request, Response } from "express";
 
 const postPostCommentById = catchAsync(async (req: Request, res: Response) => {
-  const { userId, postId, content } = req.body;
+  const userId = req.user;
+  const { postId, content } = req.body;
   if (!userId || !postId || !content) {
     const error = new Error("KEY ERROR!");
     (error as any).statusCode = 400;
@@ -15,7 +16,8 @@ const postPostCommentById = catchAsync(async (req: Request, res: Response) => {
 });
 
 const postSubCommentById = catchAsync(async (req: Request, res: Response) => {
-  const { userId, commentId, content } = req.body;
+  const userId = req.user;
+  const { commentId, content } = req.body;
   if (!userId || !commentId || !content) {
     const error = new Error("KEY ERROR!");
     (error as any).statusCode = 400;

@@ -11,14 +11,16 @@ const postPostLike = catchAsync(async (req: Request, res: Response) => {
 });
 
 const postCommentLike = catchAsync(async (req: Request, res: Response) => {
-  const { userId, commentId } = req.body;
+  const userId = req.user;
+  const { commentId } = req.body;
 
   const commentLike = await likeService.postCommentLike(userId, commentId);
   return res.status(200).json({ commentlike: commentLike });
 });
 
 const postSubCommentLike = catchAsync(async (req: Request, res: Response) => {
-  const { userId, subCommentId } = req.body;
+  const userId = req.user;
+  const { subCommentId } = req.body;
 
   const subCommentLike = await likeService.postSubCommentLike(
     userId,

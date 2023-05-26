@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+import S3 from "aws-sdk/clients/s3";
 import multer from "multer";
 import multerS3 from "multer-s3";
 import uuid from "uuid4";
@@ -26,7 +26,7 @@ export const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 },
 });
 
-const s3 = new AWS.S3();
+const s3 = new S3();
 
 const deleteImage = (fileKey: string) => {
   s3.deleteObject(

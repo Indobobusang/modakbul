@@ -5,15 +5,16 @@ import { deleteImage } from "../utils/imageUploader";
 
 const postFeedByUserId = catchAsync(async (req: Request, res: Response) => {
   const images: any = req.files;
-
-  if (!images) {
+  if (images.length === 0) {
     const error = new Error("IMAGE UPLOAD FAILED");
     (error as any).statusCode = 400;
     throw error;
   }
+
   try {
-    const { userId, title, content, x, y } = JSON.parse(req.body.data);
-    if (!title || !content || !x || !y) {
+    const userId = req.user;
+    const { title, content, x, y } = JSON.parse(req.body.data);
+    if (!title || !content) {
       const error = new Error("NO CONTENT!");
       (error as any).statusCode = 400;
       throw error;
@@ -29,12 +30,21 @@ const postFeedByUserId = catchAsync(async (req: Request, res: Response) => {
 
 const getFeedDetailById = catchAsync(async (req: Request, res: Response) => {
   const postId = Number(req.params.postId);
+  const userId = req.user;
 
-  const feedDetail = await feedService.getFeedDetailById(postId);
+  const feedDetail = await feedService.getFeedDetailById(postId, userId);
   return res.status(200).json({ feedDetail: feedDetail });
+});
+
+const getFeedCommentById = catchAsync(async (req: Request, res: Response) => {
+  const postId = Number(req.params.postId);
+
+  const feedComment = await feedService.getFeedCommentById(postId);
+  return res.status(200).json({ feedComment: feedComment });
 });
 
 export default {
   postFeedByUserId,
   getFeedDetailById,
+  getFeedCommentById,
 };

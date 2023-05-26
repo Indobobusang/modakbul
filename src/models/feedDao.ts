@@ -61,13 +61,22 @@ const getFeedById = async (postId: number) => {
     `SELECT
       u.name AS userName,
       u.profile_image_url AS userProfileImage,
+      p.id AS postId,
       p.title AS feedTitle,
       p.content AS feedContent,
       p.created_at AS feedCreateTime,
       (SELECT
         Count(*)
+      FROM comments AS c
+      INNER JOIN posts AS p ON p.id = c.post_id) AS feedCommentCount,
+      (SELECT
+        Count(*)
       FROM post_likes AS pl
       INNER JOIN posts AS p ON p.id = pl.post_id) AS feedLikeCount,
+      (SELECT
+        Count(*)
+      FROM scraps AS s
+      INNER JOIN posts AS p ON p.id = s.post_id) AS feedScrapCount,
       pi.images AS feedImages
       FROM posts AS p
       INNER JOIN users AS u ON u.id = p.user_id
@@ -85,6 +94,55 @@ const getFeedById = async (postId: number) => {
       ) AS pi ON pi.post_id = p.id
     WHERE p.id = ?`,
     [postId]
+  );
+};
+
+const getFeedByUserId = async (postId: number, userId: number) => {
+  return await appDataSource.query(
+    `SELECT
+      u.name AS userName,
+      u.profile_image_url AS userProfileImage,
+      p.id AS postId,
+      p.title AS feedTitle,
+      p.content AS feedContent,
+      p.created_at AS feedCreateTime,
+      (SELECT
+        Count(*)
+      FROM post_likes AS pl
+      INNER JOIN posts AS p ON p.id = pl.post_id) AS feedLikeCount,
+      (SELECT
+        Count(*)
+      FROM scraps AS s
+      INNER JOIN posts AS p ON p.id = s.post_id) AS feedScrapCount,
+      pi.images AS feedImages,
+      EXISTS(
+        SELECT
+          *
+        FROM post_likes AS pl
+        WHERE pl.post_id = ? AND pl.user_id = ?
+      ) AS userFeedLike,
+      EXISTS(
+        SELECT
+          *
+        FROM scraps AS s
+        WHERE s.post_id = ? AND s.user_id = ?
+      ) AS userFeedScrap
+      FROM posts AS p
+      INNER JOIN users AS u ON u.id = p.user_id
+      LEFT JOIN(
+        SELECT
+          post_id,
+          JSON_ARRAYAGG(
+            JSON_OBJECT(
+              'imageId', id,
+              'imageUrl', image_url
+            )
+          ) AS images
+        FROM post_images
+        GROUP BY post_id
+      ) AS pi ON pi.post_id = p.id
+    WHERE p.id = ?`,
+    [postId, userId, postId, userId, postId]
   );
 };
 
@@ -108,5 +166,6 @@ const getFeedCommentById = async (postId: number) => {
 export default {
   postFeedByUserId,
   getFeedById,
+  getFeedByUserId,
   getFeedCommentById,
 };

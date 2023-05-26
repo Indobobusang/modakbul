@@ -5,7 +5,13 @@ import { upload } from "../utils/imageUploader";
 
 const router: Router = express.Router();
 
-router.post("", upload.array("images"), feedController.postFeedByUserId);
-router.get("/:postId", feedController.getFeedDetailById);
+router.post(
+  "",
+  upload.array("images"),
+  validateToken,
+  feedController.postFeedByUserId
+);
+router.get("/:postId", validateToken, feedController.getFeedDetailById);
+router.get("/comment/:postId", feedController.getFeedCommentById);
 
 export { router };
