@@ -5,5 +5,6 @@ import { validateToken } from "../middlewares/auth";
 const router: Router = express.Router();
 
 router.get("", mainController.getMainPage);
+router.get("/login", validateToken, mainController.getMainPageById);
 
 export { router };

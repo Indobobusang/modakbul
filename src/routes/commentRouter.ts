@@ -4,7 +4,7 @@ import { validateToken } from "../middlewares/auth";
 
 const router: Router = express.Router();
 
-router.post("", commentController.postPostCommentById);
-router.post("/subComment", commentController.postSubCommentById);
+router.post("", validateToken, commentController.postPostCommentById);
+router.post("/subComment", validateToken, commentController.postSubCommentById);
 
 export { router };
