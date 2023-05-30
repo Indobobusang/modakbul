@@ -16,7 +16,12 @@ const postSubCommentById = async (
   return await commentDao.postSubCommentById(userId, commentId, content);
 };
 
+const deletePostCommentById = async (userId: number, commentId: number) => {
+  return await commentDao.deletePostCommentById(userId, commentId);
+};
+
 export default {
   postPostCommentById,
   postSubCommentById,
+  deletePostCommentById,
 };

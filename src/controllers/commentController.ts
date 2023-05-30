@@ -28,7 +28,18 @@ const postSubCommentById = catchAsync(async (req: Request, res: Response) => {
   return res.status(200).json({ message: "SUBCOMMENT UPLOAD SUCCESS!" });
 });
 
+const deletePostCommentById = catchAsync(
+  async (req: Request, res: Response) => {
+    const userId = req.user;
+    const { commentId } = req.body;
+
+    await commentService.deletePostCommentById(userId, commentId);
+    return res.status(200).json({ message: "COMMENT IS DELETED" });
+  }
+);
+
 export default {
   postPostCommentById,
   postSubCommentById,
+  deletePostCommentById,
 };

@@ -8,9 +8,18 @@ const getMainPage = async () => {
       u.name AS userName,
       u.profile_image_url AS userProfileImage,
       pi.image_url AS feedImage,
-      COUNT(pl.id)AS feedLikeCount,
-      COUNT(s.id) AS feedScrapCount,
-      COUNT(c.id) AS feedCommentCount
+      (SELECT
+        Count(*)
+      FROM post_likes AS pl
+      WHERE pl.post_id = p.id) AS feedLikeCount,
+      (SELECT
+        Count(*)
+      FROM scraps AS s
+      WHERE s.post_id = p.id) AS feedScrapCount,
+      (SELECT
+        Count(*)
+      FROM comments AS c
+      WHERE c.post_id = p.id) AS feedCommentCount
     FROM posts AS p
     INNER JOIN users AS u ON u.id = p.user_id
     INNER JOIN post_images AS pi ON pi.post_id = p.id
@@ -23,7 +32,8 @@ const getMainPage = async () => {
       FROM post_images AS pi
       WHERE pi.post_id = p.id
     )
-    GROUP BY p.id, pi.image_url`
+    GROUP BY p.id, pi.image_url, pl.post_id, s.post_id, c.post_id
+    ORDER BY p.id DESC`
   );
 };
 
