@@ -11,7 +11,13 @@ router.post(
   validateToken,
   feedController.postFeedByUserId
 );
-router.get("/:postId", validateToken, feedController.getFeedDetailById);
+router.get("/:postId", feedController.getFeedDetail);
+router.get("/login/:postId", validateToken, feedController.getFeedDetailById);
 router.get("/comment/:postId", feedController.getFeedCommentById);
+router.get(
+  "/comment/login/:postId",
+  validateToken,
+  feedController.getFeedCommentByUserId
+);
 
 export { router };

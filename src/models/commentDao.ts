@@ -40,7 +40,17 @@ const postSubCommentById = async (
   );
 };
 
+const deletePostCommentById = async (userId: number, commentId: number) => {
+  return await appDataSource.query(
+    `DELETE FROM
+      comments
+    WHERE comments.user_id =? AND comments.id = ?`,
+    [userId, commentId]
+  );
+};
+
 export default {
   postPostCommentById,
   postSubCommentById,
+  deletePostCommentById,
 };

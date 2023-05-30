@@ -15,7 +15,7 @@ const postFeedByUserId = catchAsync(async (req: Request, res: Response) => {
     const userId = req.user;
     const { title, content, x, y } = JSON.parse(req.body.data);
     if (!title || !content) {
-      const error = new Error("NO CONTENT!");
+      const error = new Error("NO TITLE OR CONTENT!");
       (error as any).statusCode = 400;
       throw error;
     }
@@ -26,6 +26,13 @@ const postFeedByUserId = catchAsync(async (req: Request, res: Response) => {
     for (let i = 0; i < images.length; i++) deleteImage(images[i].key);
     throw error;
   }
+});
+
+const getFeedDetail = catchAsync(async (req: Request, res: Response) => {
+  const postId = Number(req.params.postId);
+
+  const feedDetail = await feedService.getFeedDetail(postId);
+  return res.status(200).json({ feedDetail: feedDetail });
 });
 
 const getFeedDetailById = catchAsync(async (req: Request, res: Response) => {
@@ -43,8 +50,23 @@ const getFeedCommentById = catchAsync(async (req: Request, res: Response) => {
   return res.status(200).json({ feedComment: feedComment });
 });
 
+const getFeedCommentByUserId = catchAsync(
+  async (req: Request, res: Response) => {
+    const userId = req.user;
+    const postId = Number(req.params.postId);
+
+    const feedComment = await feedService.getFeedCommentByUserId(
+      userId,
+      postId
+    );
+    return res.status(200).json({ feedComment: feedComment });
+  }
+);
+
 export default {
   postFeedByUserId,
+  getFeedDetail,
   getFeedDetailById,
   getFeedCommentById,
+  getFeedCommentByUserId,
 };
