@@ -15,6 +15,7 @@ const getFeedDetail = async (postId: number) => {
   let feed = await feedDao.getFeedById(postId);
   feed[0].userFeedLike = false;
   feed[0].userFeedScrap = false;
+
   return feed;
 };
 
@@ -31,9 +32,6 @@ const getFeedDetailById = async (postId: number, userId: number) => {
     feed[0].userFeedScrap = true;
   }
 
-  const feedImageString = feed[0].feedImages;
-  const feedImages = JSON.parse(feedImageString);
-  feed[0].feedImages = feedImages;
   return feed;
 };
 
