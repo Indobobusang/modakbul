@@ -31,8 +31,9 @@ const getFeedDetailById = async (postId: number, userId: number) => {
   } else if (feed[0].userFeedScrap === "1") {
     feed[0].userFeedScrap = true;
   }
+  let loginUser = await feedDao.loginUserInfo(userId);
 
-  return feed;
+  return { feed, loginUser };
 };
 
 const getFeedCommentById = async (postId: number) => {

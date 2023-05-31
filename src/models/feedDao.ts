@@ -146,6 +146,18 @@ const getFeedByUserId = async (postId: number, userId: number) => {
   );
 };
 
+const loginUserInfo = async (userId: number) => {
+  return await appDataSource.query(
+    `SELECT
+      u.id AS loginUserId,
+      u.name AS loginUserName,
+      u.profile_image_url AS loginUserProfileImage
+    FROM users AS u
+    WHERE u.id = ?`,
+    [userId]
+  );
+};
+
 const getFeedCommentById = async (postId: number) => {
   return await appDataSource.query(
     `SELECT
@@ -192,6 +204,7 @@ export default {
   postFeedByUserId,
   getFeedById,
   getFeedByUserId,
+  loginUserInfo,
   getFeedCommentById,
   getFeedCommentByUserId,
 };

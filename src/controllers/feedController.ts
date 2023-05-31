@@ -39,8 +39,11 @@ const getFeedDetailById = catchAsync(async (req: Request, res: Response) => {
   const postId = Number(req.params.postId);
   const userId = req.user;
 
-  const feedDetail = await feedService.getFeedDetailById(postId, userId);
-  return res.status(200).json({ feedDetail: feedDetail });
+  const { feed, loginUser } = await feedService.getFeedDetailById(
+    postId,
+    userId
+  );
+  return res.status(200).json({ feedDetail: feed, loginUser: loginUser });
 });
 
 const getFeedCommentById = catchAsync(async (req: Request, res: Response) => {
