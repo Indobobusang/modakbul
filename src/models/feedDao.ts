@@ -68,15 +68,15 @@ const getFeedById = async (postId: number) => {
       (SELECT
         Count(*)
       FROM comments AS c
-      INNER JOIN posts AS p ON p.id = c.post_id) AS feedCommentCount,
+      WHERE c.post_id = p.id) AS feedCommentCount,
       (SELECT
         Count(*)
       FROM post_likes AS pl
-      INNER JOIN posts AS p ON p.id = pl.post_id) AS feedLikeCount,
+      WHERE pl.post_id = p.id) AS feedLikeCount,
       (SELECT
         Count(*)
       FROM scraps AS s
-      INNER JOIN posts AS p ON p.id = s.post_id) AS feedScrapCount,
+      WHERE s.post_id = p.id) AS feedScrapCount,
       pi.images AS feedImages
       FROM posts AS p
       INNER JOIN users AS u ON u.id = p.user_id
@@ -108,12 +108,16 @@ const getFeedByUserId = async (postId: number, userId: number) => {
       p.created_at AS feedCreateTime,
       (SELECT
         Count(*)
+      FROM comments AS c
+      WHERE c.post_id = p.id) AS feedCommentCount,
+      (SELECT
+        Count(*)
       FROM post_likes AS pl
-      INNER JOIN posts AS p ON p.id = pl.post_id) AS feedLikeCount,
+      WHERE pl.post_id = p.id) AS feedLikeCount,
       (SELECT
         Count(*)
       FROM scraps AS s
-      INNER JOIN posts AS p ON p.id = s.post_id) AS feedScrapCount,
+      WHERE s.post_id = p.id) AS feedScrapCount,
       pi.images AS feedImages,
       EXISTS(
         SELECT
