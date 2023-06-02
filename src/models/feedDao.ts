@@ -65,6 +65,8 @@ const getFeedById = async (postId: number) => {
       p.title AS feedTitle,
       p.content AS feedContent,
       p.created_at AS feedCreateTime,
+      p.longitude AS x,
+      p.latitude AS y,
       (SELECT
         Count(*)
       FROM comments AS c
@@ -106,6 +108,8 @@ const getFeedByUserId = async (postId: number, userId: number) => {
       p.title AS feedTitle,
       p.content AS feedContent,
       p.created_at AS feedCreateTime,
+      p.longitude AS x,
+      p.latitude AS y,
       (SELECT
         Count(*)
       FROM comments AS c
