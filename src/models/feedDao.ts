@@ -162,7 +162,7 @@ const loginUserInfo = async (userId: number) => {
   );
 };
 
-const getFeedCommentById = async (postId: number) => {
+const getFeedCommentById = async (postId: number, startIndex: number) => {
   return await appDataSource.query(
     `SELECT
       c.id AS commentId,
@@ -175,12 +175,17 @@ const getFeedCommentById = async (postId: number) => {
     INNER JOIN posts AS p ON p.id = c.post_id
     INNER JOIN users AS u ON u.id = c.user_id
     WHERE p.id = ?
-    ORDER BY c.id DESC`,
-    [postId]
+    ORDER BY c.id DESC
+    LIMIT ?,12`,
+    [postId, startIndex]
   );
 };
 
-const getFeedCommentByUserId = async (userId: number, postId: number) => {
+const getFeedCommentByUserId = async (
+  userId: number,
+  postId: number,
+  startIndex: number
+) => {
   return await appDataSource.query(
     `SELECT
       c.id AS commentId,
@@ -199,8 +204,9 @@ const getFeedCommentByUserId = async (userId: number, postId: number) => {
     INNER JOIN posts AS p ON p.id = c.post_id
     INNER JOIN users AS u ON u.id = c.user_id
     WHERE p.id = ?
-    ORDER BY c.id DESC`,
-    [userId, postId]
+    ORDER BY c.id DESC
+    LIMIT ?, 12`,
+    [userId, postId, startIndex]
   );
 };
 
