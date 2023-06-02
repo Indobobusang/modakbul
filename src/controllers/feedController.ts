@@ -2,6 +2,7 @@ import feedService from "../services/feedService";
 import { catchAsync } from "../utils/errorHandler";
 import { Request, Response } from "express";
 import { deleteImage } from "../utils/imageUploader";
+import { start } from "repl";
 
 const postFeedByUserId = catchAsync(async (req: Request, res: Response) => {
   const images: any = req.files;
@@ -48,8 +49,9 @@ const getFeedDetailById = catchAsync(async (req: Request, res: Response) => {
 
 const getFeedCommentById = catchAsync(async (req: Request, res: Response) => {
   const postId = Number(req.params.postId);
+  const startIndex = Number(req.query.startIndex);
 
-  const feedComment = await feedService.getFeedCommentById(postId);
+  const feedComment = await feedService.getFeedCommentById(postId, startIndex);
   return res.status(200).json({ feedComment: feedComment });
 });
 
@@ -57,10 +59,12 @@ const getFeedCommentByUserId = catchAsync(
   async (req: Request, res: Response) => {
     const userId = req.user;
     const postId = Number(req.params.postId);
+    const startIndex = Number(req.query.startIndex);
 
     const feedComment = await feedService.getFeedCommentByUserId(
       userId,
-      postId
+      postId,
+      startIndex
     );
     return res.status(200).json({ feedComment: feedComment });
   }

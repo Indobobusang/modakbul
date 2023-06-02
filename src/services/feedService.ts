@@ -36,8 +36,8 @@ const getFeedDetailById = async (postId: number, userId: number) => {
   return { feed, loginUser };
 };
 
-const getFeedCommentById = async (postId: number) => {
-  let comment = await feedDao.getFeedCommentById(postId);
+const getFeedCommentById = async (postId: number, startIndex: number) => {
+  let comment = await feedDao.getFeedCommentById(postId, startIndex);
   for (let i = 0; i < comment.length; i++) {
     comment[i].commentUserLike = false;
   }
@@ -45,8 +45,16 @@ const getFeedCommentById = async (postId: number) => {
   return comment;
 };
 
-const getFeedCommentByUserId = async (userId: number, postId: number) => {
-  let comment = await feedDao.getFeedCommentByUserId(userId, postId);
+const getFeedCommentByUserId = async (
+  userId: number,
+  postId: number,
+  startIndex: number
+) => {
+  let comment = await feedDao.getFeedCommentByUserId(
+    userId,
+    postId,
+    startIndex
+  );
 
   for (let i = 0; i < comment.length; i++) {
     if (comment[i].commentUserLike === "0") {
