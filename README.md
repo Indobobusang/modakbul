@@ -22,7 +22,6 @@ Back-End
 <img src="https://img.shields.io/badge/Dbmate-009DC7?style=flat&amp;logo=Bcrypt&amp;logoColor=white">
 <img src="https://img.shields.io/badge/-Bcrypt-blueviolet?style=flat&amp;logo=Bcrypt&amp;logoColor=white">
 <img src="https://img.shields.io/badge/AWS_S3-569A31?style=flat&amp;logo=AWS_S3&amp;logoColor=white">
-<img src="https://img.shields.io/badge/-Naver%20SENS-brightgreen">  
 <img src="https://img.shields.io/badge/-TypeScript-blue">
 
 Common
