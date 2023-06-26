@@ -1,4 +1,5 @@
-# modakbul
+# Team TwoPlusOne - 🏕️ Modakbul(모닥불)
+![image](https://github.com/Indobobusang/modakbul-backend/assets/120322181/b4d8c507-b493-4da1-86d9-cc2ab1b0722a)
 
 ## 프로젝트 정보
 ####  프로젝트 이름 : 모닥불(Modakbul)
