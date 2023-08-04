@@ -45,12 +45,16 @@ Communication
 
 1. 구글 로그인 회원가입 기능 구현
  - 구글 API를 활용하여 로그인 회원가입 기능 구현
-<img src="https://github.com/Indobobusang/modakbul-backend/assets/120322181/39678e1d-f3eb-41f1-9dbb-62709502710a"/>
+
+https://github.com/Indobobusang/modakbul-backend/assets/120322181/ca696143-5bf0-4567-956f-5c8abe2f3983
 
 2. 피드(게시글) 등록 기능 구현
  - AWS S3를 활용한 이미지 등록
  - 네이버 지도 API를 활용한 좌표 등록
-<img src="https://github.com/Indobobusang/modakbul-backend/assets/120322181/0dcb2fe5-80cb-4c25-9fa9-ef3f15ae3b4b"/>
+
+https://github.com/shinheylynn/modakbul/assets/84219519/46afe637-02e3-48c0-aa37-68e2f46cc18e
+
+https://github.com/shinheylynn/modakbul/assets/120013855/0062dce0-2ea0-4d85-8514-791d04b9a0a5
 
 3. 피드 댓글 등록 기능 구현
  - 피드 게시물에 댓글 등록 및 무한 스크롤 기능 구현 
@@ -58,17 +62,23 @@ Communication
 4. 피드 게시물과 댓글 좋아요, 스크랩 기능 구현
  - 피드 게시물 좋아요와 스크랩 기능 구현
  - 댓글 좋아요 기능 구현
-<img src="https://github.com/Indobobusang/modakbul-backend/assets/120322181/c309b7a5-e0b7-4742-a772-8153989e9789"/>
+
+https://github.com/shinheylynn/modakbul/assets/120013855/42c5514d-aff2-4efe-9815-334b8ff9de19
 
 5. 피드 상세페이지 조회 기능 구현
  - 피드 상세페이지 조회 및 댓글 조회 기능 구현
 
+https://github.com/shinheylynn/modakbul/assets/120013855/ad1c163d-a4d9-410e-a36f-f9013433fab2
+
 6. 메인페이지 조회 기능 구현
  - 메인페이지에 등록된 최근순으로 피드 조회
 
+https://github.com/shinheylynn/modakbul/assets/84219519/5d5b8bb7-6e32-4df5-861b-cf791821c1b0
+
 7. 마이페이지 조회 기능 구현
  - 해당 유저의 정보, 등록한 게시물, 좋아요한 게시물, 스크랩한 게시물 등 조회
- <img src="https://github.com/Indobobusang/modakbul-backend/assets/120322181/8cc262a0-7239-4a40-b6f7-7423dbdc7aa7"/>
+
+https://github.com/shinheylynn/modakbul/assets/120013855/ca6fe949-e3c0-45ea-bfc8-937afd4534d3
 
  ## 프로젝트 후 느낀 점
 
